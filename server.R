@@ -716,7 +716,8 @@ shinyServer(
       maxstat <- ggplotGrob(p1[[1]]$maxstat + theme(legend.position = "none"))
       survival <- ggplotGrob(p2[[1]])
       
-      grid::grid.draw(rbind(distribution, maxstat, survival))
+      # grid::grid.draw(rbind(distribution, maxstat, survival))
+      grid::grid.draw(grid.arrange(distribution, maxstat, survival, ncol=1))
     })
     
     output$cutpointDataTable <- DT::renderDataTable({
