@@ -229,7 +229,8 @@ survivalPlot <- function (df, gene, group, subtype, cutoff, numeric, censor,risk
   tmax <- smax-(25*smax)/100
   xmax <- (90*tmax)/100
   df$cutoff_group <- get_cutoff(mRNA, cutoff, numeric)
-  expr.surv <- survfit(my.Surv ~ cutoff_group, data=df)
+  #expr.surv <- survfit(my.Surv ~ cutoff_group, data=df)
+  expr.surv <- do.call(survfit, list(formula = my.Surv ~ cutoff_group, data=df))
   log.rank <- survdiff(my.Surv ~ cutoff_group, rho = 0, data=df)
   mantle.cox <- survdiff(my.Surv ~ cutoff_group, rho = 1, data=df)
   surv <- data.frame(summary(expr.surv)$table)
