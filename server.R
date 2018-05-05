@@ -635,17 +635,17 @@ shinyServer(
       # Use 'try' to suppress a message throwed the first time manual cutoff is selected
       if(input$allSubSurv) {
         nrow <- ceiling(length(subtype())/2)
-        try({
+        {
           p <- list()
           for (i in subtype()) {
             p[[i]] <- survivalPlot(surv_data(), input$gene, group = input$histology, subtype = i, font.legend = input$surv_legend_size,
                                    input$riskTable, cutoff = input$cutoff, numeric = input$mInput, censor = input$censor, conf.int = input$confInt)$plot
           }
           do.call(grid.arrange,args = list(grobs = p, nrow = nrow, ncol=2))
-        }, silent = TRUE)
+        }
       } else {
-        try(survivalPlot(surv_data(), input$gene, group = input$histology, subtype = input$subtype, font.legend = input$surv_legend_size,
-                         input$riskTable, cutoff = input$cutoff, numeric = input$mInput, censor = input$censor, conf.int = input$confInt), silent = TRUE)
+        survivalPlot(surv_data(), input$gene, group = input$histology, subtype = input$subtype, font.legend = input$surv_legend_size,
+                         input$riskTable, cutoff = input$cutoff, numeric = input$mInput, censor = input$censor, conf.int = input$confInt)
       }
     }, height = surv_plot_height, width = function(){if(!input$allSubSurv) {500} else {900}})
     
